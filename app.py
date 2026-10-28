@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import joblib
 import pandas as pd
 import plotly.graph_objects as go
@@ -6,6 +8,7 @@ import streamlit as st
 st.set_page_config(page_title="Customer Churn Predictor", layout="wide")
 
 THRESHOLD = 0.35
+MODEL_PATH = Path(__file__).parent / "customer_churn_xgb_pipeline.pkl"
 
 st.markdown(
     """
@@ -31,13 +34,13 @@ st.markdown(
 
 @st.cache_resource
 def load_model():
-    return joblib.load("customer_churn_xgb_pipeline(1).pkl")
+    return joblib.load(MODEL_PATH)
 
 
 try:
     model = load_model()
 except FileNotFoundError:
-    st.error("Model file 'customer_churn_xgb_pipeline(1).pkl' not found.")
+    st.error(f"Model file not found at: {MODEL_PATH}")
     st.stop()
 
 
@@ -92,7 +95,7 @@ def get_flags(data):
 with st.sidebar:
     st.header("About")
     st.write("Predicts the probability of customer churn using an XGBoost pipeline.")
-    st.write(f"A customer is flagged as high risk when the churn probability is {int(THRESHOLD * 100)}% or more.")
+    st.write(f"A customer is flagged as at risk when the churn probability is {int(THRESHOLD * 100)}% or more.")
     st.caption("Built with Python, scikit-learn, XGBoost and Streamlit")
 
 st.markdown(
