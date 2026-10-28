@@ -5,7 +5,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Customer Churn Predictor", layout="wide")
 
-THRESHOLD = 0.40
+THRESHOLD = 0.35
 
 st.markdown(
     """
