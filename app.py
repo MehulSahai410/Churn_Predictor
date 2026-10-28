@@ -31,13 +31,13 @@ st.markdown(
 
 @st.cache_resource
 def load_model():
-    return joblib.load("customer_churn_xgb_pipeline.pkl")
+    return joblib.load("customer_churn_xgb_pipeline(1).pkl")
 
 
 try:
     model = load_model()
 except FileNotFoundError:
-    st.error("Model file 'customer_churn_xgb_pipeline.pkl' not found.")
+    st.error("Model file 'customer_churn_xgb_pipeline(1).pkl' not found.")
     st.stop()
 
 
